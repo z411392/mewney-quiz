@@ -1,17 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-const modules: string[] = [
-  `./modules/github`,
-]
-
+const baseURL = process.env.NODE_ENV === 'production' ? '/mewney-quiz/' : '/'
+const origin = process.env.NODE_ENV === 'production' ? 'https://z411392.github.io' : 'http://localhost:3000'
 export default defineNuxtConfig({
   ssr: false,
+  runtimeConfig: {
+    public: {
+      origin,
+    }
+  },
   devtools: { enabled: true },
-  modules,
   webpack: { optimizeCSS: true },
   vite: { build: { chunkSizeWarningLimit: 1600 } },
   build: { transpile: ['vuetify'] },
   app: {
+    baseURL,
     head: {
       title: '',
       charset: 'utf-8',

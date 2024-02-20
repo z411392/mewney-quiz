@@ -1,8 +1,7 @@
-import { makeRequest } from '../../make-request'
-import type { SearchResult } from '~/modules/github/types/github/search-result'
-import type { Repository } from '~/modules/github/types/github/search-result/repository'
+import { makeRequest } from "../make-request"
+import type { SearchResult, Repository } from '../types'
 
-export const searchForRepositories = ({ keyword, itemsPerPage = 10, page }: { keyword: string, itemsPerPage?: number, page: number }, signal?: AbortSignal) => {
+export const searchForRepositories = async ({ keyword, page = 1, itemsPerPage = 10 }: { keyword: string, page?: number, itemsPerPage?: number }, signal?: AbortSignal) => {
     // https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-repositories
     // https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories
     // https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api?apiVersion=2022-11-28#changing-the-number-of-items-per-page

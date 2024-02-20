@@ -1,8 +1,8 @@
-import type { Repository } from "~/modules/github/types/github/search-result/repository"
+import { github } from "~/utils/github"
+import type { Repository } from "~/utils/github/types/repository"
 
 type Done = (status: 'loading' | 'error' | 'empty' | 'ok') => void
 export const useGithubRepositoriesSearcher = () => {
-    const { $github } = useNuxtApp()
     const $keyword = ref('')
     const $page = ref(1)
     const $repositories = ref<Repository[]>([])
@@ -14,7 +14,7 @@ export const useGithubRepositoriesSearcher = () => {
         }
         abortController = new AbortController()
         try {
-            const { items } = await $github.searchForRepositories({ keyword: $keyword.value, page: $page.value }, abortController.signal)
+            const { items } = await github.searchForRepositories({ keyword: $keyword.value, page: $page.value }, abortController.signal)
             $repositories.value = [...$repositories.value, ...items]
             if (items.length < 10) return done('empty')
             $page.value += 1
