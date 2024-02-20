@@ -10,6 +10,17 @@
 
 重新整理原本的頁面，應該就能正常顯示（是可以自己架免費的代理，譬如 colab、repl.it，但是目前先這樣 🙇‍♂️）。
 
+#### 如果超過了 Github REST API 的 Quota⋯
+會得到例如這樣的回應：
+```json
+{
+    "message": "API rate limit exceeded for 44.195.30.179. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+    "documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+}
+```
+
+那就要請你稍候一段時間再試一次。
+
 ### 開發會用到的指令
 
 #### 以開發模式啟動
