@@ -1,75 +1,42 @@
-# Nuxt 3 Minimal Starter
+### 注意事項
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+#### 搜尋結果如果沒有內容⋯
 
-## Setup
+而因為直接從 Client Side 打 Github REST API 會遇到 CORS 的問題，又因為 Github Page 不能作 Functions Hosting，這裡選擇的是透過 `cors-anywhere` 在中間作請求的轉發。然而因為 `cors-anywhere` Quota 有限，在試用這個小網站的時候，可能會遇到搜尋結果沒有內容的錯誤：
+![image](https://github.com/z411392/mewney-quiz/blob/main/cors-anywhere.png)
 
-Make sure to install the dependencies:
+此時請點開 console 裡的連結，並點選畫面中的「Request temporary access to the demo server」按鈕：
+![image](https://github.com/z411392/mewney-quiz/blob/main/request-temporary-access.png)
 
-```bash
-# npm
-npm install
+重新整理原本的頁面，應該就能正常顯示（是可以自己架免費的代理，譬如 colab、repl.it，但是目前先這樣 🙇‍♂️）。
 
-# pnpm
-pnpm install
+### 開發會用到的指令
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+#### 以開發模式啟動
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+npm run dev # 伺服器預設會啟動在 http://localhost:3000
 ```
 
-## Production
-
-Build the application for production:
+#### 檢查程式碼／自動修復
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npm run eslint
+npm run fix # 還是建議一個一個看過比較好
 ```
 
-Locally preview production build:
+#### 自動排版
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+npm run prettier
+npm run format
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+#### 發布為 Github Page
+
+參考[這篇](https://clairechang.tw/2023/10/03/nuxt3/nuxt-v3-static-site-generation/)。
+
+```bash
+npm run generate
+npm run deploy
+```
