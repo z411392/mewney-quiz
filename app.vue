@@ -1,15 +1,11 @@
 <script setup lang="ts">
-const nuxt = useNuxtApp()
-
-onBeforeMount(async () => {
-  console.log(await nuxt.$github.searchForRepositories({keyword: 'jquery'}))
-})
+import GithubRepositoriesSearcher from '~/components/app/github-repositories-searcher.vue'
 </script>
 
 <template>
-  <div>
-
-  </div>
+  <v-app>
+    <v-main>
+      <GithubRepositoriesSearcher />
+    </v-main>
+  </v-app>
 </template>
-
-<style scoped></style>
