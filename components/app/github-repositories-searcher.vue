@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useGithubRepositoriesSearcher from '~/composables/app/github-repositories-searcher.ts';
 
-const { $keyword, $repositories, load, $emptyText } = useGithubRepositoriesSearcher();
+const { $keyword, $repositories, load, $emptyText, $total } = useGithubRepositoriesSearcher();
 </script>
 
 <template>
@@ -24,16 +24,13 @@ const { $keyword, $repositories, load, $emptyText } = useGithubRepositoriesSearc
       density="compact"
     >
       <v-container>
+        <v-row v-show="$keyword && $total">
+          <v-col cols="12">一共有 {{ $total }} 筆搜尋結果</v-col>
+        </v-row>
         <template
-          v-for="{
-            id,
-            full_name,
-            description,
-            html_url,
-            stargazers_count,
-            topics,
-            owner,
-          } in $repositories"
+          v-for="(
+            { id, full_name, description, html_url, stargazers_count, topics, owner }, index
+          ) in $repositories"
           :key="id"
         >
           <v-row>
@@ -43,6 +40,7 @@ const { $keyword, $repositories, load, $emptyText } = useGithubRepositoriesSearc
                   <v-row dense>
                     <v-col cols="auto" :class="$style['beside-avatar']">
                       <v-card-title density="compact">
+                        {{ index + 1 }}.
                         <NuxtLink :to="html_url" external target="_blank">{{ full_name }}</NuxtLink>
                       </v-card-title>
                     </v-col>

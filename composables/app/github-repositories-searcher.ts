@@ -6,6 +6,7 @@ type Done = (status: 'loading' | 'error' | 'empty' | 'ok') => void; // eslint-di
 
 export default () => {
   const $keyword = ref('');
+  const $total = ref(0);
   const $page = ref(1);
   const $repositories = ref<Repository[]>([]);
   let abortController: AbortController | undefined;
@@ -16,10 +17,11 @@ export default () => {
     }
     abortController = new AbortController();
     try {
-      const { items } = await github.searchForRepositories(
+      const { total_count, items } = await github.searchForRepositories(
         { keyword: $keyword.value, page: $page.value },
         abortController.signal,
       );
+      $total.value = total_count;
       $repositories.value = [...$repositories.value, ...items];
       if (items.length < 10) return done('empty');
       $page.value += 1;
@@ -31,6 +33,7 @@ export default () => {
   const flush = () => {
     $page.value = 1;
     $repositories.value = [];
+    $total.value = 0;
   };
   watch($keyword, flush);
   const $emptyText = computed(() => {
@@ -43,5 +46,6 @@ export default () => {
     $repositories,
     load,
     $emptyText,
+    $total,
   };
 };
