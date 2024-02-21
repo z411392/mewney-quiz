@@ -33,12 +33,12 @@ const { $keyword, $repositories, load, $emptyText, $total } = useGithubRepositor
           ) in $repositories"
           :key="id"
         >
-          <v-row>
+          <v-row dense>
             <v-col :cols="12">
               <v-card density="compact" rounded="2">
                 <v-layout>
                   <v-row dense>
-                    <v-col cols="auto" :class="$style['beside-avatar']">
+                    <v-col cols="auto" :class="$style['beside-avatar']" align-self="center">
                       <v-card-title density="compact">
                         {{ index + 1 }}.
                         <NuxtLink :to="html_url" external target="_blank">{{ full_name }}</NuxtLink>
@@ -79,7 +79,7 @@ const { $keyword, $repositories, load, $emptyText, $total } = useGithubRepositor
                       </v-card-item>
                     </v-col>
                     <v-col cols="auto" :class="$style['avatar']">
-                      <v-container density="compact" dense>
+                      <v-layout density="compact" dense style="flex-direction: column">
                         <v-row dense>
                           <v-spacer />
                           <v-col cols="auto">
@@ -90,11 +90,13 @@ const { $keyword, $repositories, load, $emptyText, $total } = useGithubRepositor
                         <v-row dense>
                           <v-spacer />
                           <v-col cols="auto">
-                            {{ stargazers_count }}
+                            <v-card-subtitle>
+                              {{ stargazers_count }}
+                            </v-card-subtitle>
                           </v-col>
                           <v-spacer />
                         </v-row>
-                      </v-container>
+                      </v-layout>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -124,5 +126,9 @@ const { $keyword, $repositories, load, $emptyText, $total } = useGithubRepositor
 
 .v-badge {
   @apply text-center;
+}
+
+.v-card-text {
+  @apply overflow-hidden line-clamp-3 py-0 break-all my-4;
 }
 </style>
