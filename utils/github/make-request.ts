@@ -14,7 +14,7 @@ export default async <T>(
   const endpoint = 'https://api.github.com';
   const body = data ? new URLSearchParams(data) : '';
   let URL = method === 'GET' ? `${endpoint}${uri}?${body}` : `${endpoint}${uri}`;
-  URL = `https://cors-anywhere.herokuapp.com/${URL}`; // https://ithelp.ithome.com.tw/m/articles/10268821
+  URL = `https://corsproxy.io/?${encodeURIComponent(URL)}`;
   const {
     public: { origin },
   } = useRuntimeConfig();
