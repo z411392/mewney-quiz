@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useGithubRepositoriesSearcher } from "~/composables/app/github-repositories-searcher"
-const { $keyword, $repositories, load, $emptyText } =
-  useGithubRepositoriesSearcher()
+import useGithubRepositoriesSearcher from '~/composables/app/github-repositories-searcher.ts';
+
+const { $keyword, $repositories, load, $emptyText } = useGithubRepositoriesSearcher();
 </script>
 
 <template>
@@ -11,12 +11,7 @@ const { $keyword, $repositories, load, $emptyText } =
     </v-row>
     <v-row dense>
       <v-col :cols="12">
-        <v-text-field
-          v-model="$keyword"
-          density="compact"
-          label="輸入關鍵字"
-          hide-details
-        />
+        <v-text-field v-model="$keyword" density="compact" label="輸入關鍵字" hide-details />
       </v-col>
     </v-row>
   </v-container>
@@ -48,9 +43,7 @@ const { $keyword, $repositories, load, $emptyText } =
                   <v-row dense>
                     <v-col cols="auto" :class="$style['beside-avatar']">
                       <v-card-title density="compact">
-                        <NuxtLink :to="html_url" external target="_blank">{{
-                          full_name
-                        }}</NuxtLink>
+                        <NuxtLink :to="html_url" external target="_blank">{{ full_name }}</NuxtLink>
                       </v-card-title>
                     </v-col>
                     <v-col cols="auto" :class="$style['avatar']">
@@ -58,11 +51,7 @@ const { $keyword, $repositories, load, $emptyText } =
                         <v-row dense>
                           <v-spacer />
                           <v-col cols="auto">
-                            <NuxtLink
-                              :to="owner.html_url"
-                              external
-                              target="_blank"
-                            >
+                            <NuxtLink :to="owner.html_url" external target="_blank">
                               <v-avatar>
                                 <v-img :src="owner.avatar_url" />
                               </v-avatar>
@@ -86,9 +75,7 @@ const { $keyword, $repositories, load, $emptyText } =
                       <v-card-item>
                         <v-chip-group column>
                           <template v-for="topic in topics" :key="topic">
-                            <v-chip variant="elevated" size="small">{{
-                              topic
-                            }}</v-chip>
+                            <v-chip variant="elevated" size="small">{{ topic }}</v-chip>
                           </template>
                         </v-chip-group>
                       </v-card-item>

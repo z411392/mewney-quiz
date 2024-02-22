@@ -1,9 +1,11 @@
-import type { SearchResult } from "./search-result"
-import type { Repository } from "./repository"
+/* eslint no-unused-vars: 0 */
+
+import type { SearchResult } from './search-result';
+import type { Repository } from './repository';
 
 export type Github = {
   searchForRepositories(
     params: { keyword: string; page?: number },
     signal?: AbortSignal,
-  ): Promise<SearchResult<Repository>>
-}
+  ): Promise<SearchResult<Repository>>;
+};

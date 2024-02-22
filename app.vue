@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GithubRepositoriesSearcher from "~/components/app/github-repositories-searcher.vue"
+import GithubRepositoriesSearcher from '~/components/app/github-repositories-searcher.vue';
 </script>
 
 <template>
