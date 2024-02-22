@@ -24,7 +24,7 @@ export default async (
     `'${keyword}' in:topics`,
     `'${keyword}' in:description`,
     `'${keyword}' in:name`,
-    'sort:interactions',
+    'sort:stars',
   ].join(' or ');
   return makeRequest<SearchResult<Repository>>(
     'GET',
