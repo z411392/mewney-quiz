@@ -1,4 +1,4 @@
-import { ref, watch, computed } from 'vue';
+import { customRef, ref, watch, computed } from 'vue';
 import github from '~/utils/github/index.ts';
 import type { Repository } from '~/utils/github/types/repository';
 
@@ -9,26 +9,27 @@ export default () => {
   const $total = ref(0);
   const $page = ref(1);
   const $repositories = ref<Repository[]>([]);
+  let timeout: NodeJS.Timeout;
   let abortController: AbortController | undefined;
   const load = async ({ done }: { done: Done }) => {
-    if (abortController) {
-      abortController.abort();
-      abortController = undefined;
-    }
+    if (timeout) clearTimeout(timeout);
+    if (abortController) abortController.abort();
     abortController = new AbortController();
-    try {
-      const { total_count, items } = await github.searchForRepositories(
-        { keyword: $keyword.value, page: $page.value },
-        abortController.signal,
-      );
-      $total.value = total_count;
-      $repositories.value = [...$repositories.value, ...items];
-      if (items.length < 10) return done('empty');
-      $page.value += 1;
-      return done('ok');
-    } catch {
-      return done('error');
-    }
+    timeout = setTimeout(async () => {
+      try {
+        const { total_count: total, items } = await github.searchForRepositories(
+          { keyword: $keyword.value, page: $page.value },
+          abortController!.signal,
+        );
+        $total.value = total;
+        $repositories.value = [...$repositories.value, ...items];
+        if (items.length < 10) return done('empty');
+        $page.value += 1;
+        return done('ok');
+      } catch {
+        return done('error');
+      }
+    }, 400);
   };
   const flush = () => {
     $page.value = 1;
