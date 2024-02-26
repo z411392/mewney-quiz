@@ -20,12 +20,12 @@ export default async (
       items: [],
     } as SearchResult<Repository>;
   }
-  const q = [
+  const conditions = [
     `'${keyword}' in:topics`,
     `'${keyword}' in:description`,
     `'${keyword}' in:name`,
-    'sort:stars',
-  ].join(' or ');
+  ].join(' OR ');
+  const q = `(${conditions}) sort:stars`;
   return makeRequest<SearchResult<Repository>>(
     'GET',
     '/search/repositories',
