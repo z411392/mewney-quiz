@@ -4,6 +4,9 @@ module.exports = {
     browser: true,
     node: true,
   },
+  globals: {
+    NodeJS: true,
+  },
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser',
